@@ -82,8 +82,8 @@ class _HomeViweState extends ConsumerState<HomeView> {
                             Text(
                               ref.read(_homeViewModel).userHive.get('name') !=
                                       null
-                                  ? 'Hi, ${ref.read(_homeViewModel).userHive.get('name')}'
-                                  : 'Hi',
+                                  ? 'Hoşgeldin, ${ref.read(_homeViewModel).userHive.get('name')}'
+                                  : ' Hoşgeldin',
                               style: const TextStyle(
                                 fontSize: 24,
                                 color: Colors.white,
@@ -94,7 +94,7 @@ class _HomeViweState extends ConsumerState<HomeView> {
                               height: context.height / 281,
                             ),
                             const Text(
-                              'Proje İsmi',
+                              'Gönüllüyüz',
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,
@@ -113,6 +113,7 @@ class _HomeViweState extends ConsumerState<HomeView> {
                           icon: Icon(
                             Icons.person_outline,
                             color: Colors.white,
+                            size: 30,
                           ),
                         )
                       ],
@@ -223,7 +224,9 @@ class _HomeViweState extends ConsumerState<HomeView> {
                   top: 4,
                 ),
                 child: Text(
-                  eventModel.name!,
+                  eventModel.name!.length > 40
+                      ? eventModel.name!.substring(0, 40) + '...'
+                      : eventModel.name!,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

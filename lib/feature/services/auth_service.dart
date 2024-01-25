@@ -12,10 +12,9 @@ class AuthService {
   Future<UserResponseModel?>? register({
     @required String? mail,
     @required String? password,
-    @required int? tcNo,
     @required String? name,
     @required String? surname,
-    @required int? birthday,
+    @required String? birthday,
     @required String? phone,
   }) async {
     try {

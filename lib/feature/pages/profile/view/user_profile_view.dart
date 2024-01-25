@@ -124,6 +124,8 @@ class _UserProfileViewState extends ConsumerState<UserProfileView> {
             InkWell(
               onTap: () {
                 ref.read(_userViewModel).userHive.clear();
+                ref.read(_userViewModel).registeredEvents.clear();
+                ref.read(_userViewModel).userDonations.clear();
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => LoginView()),
@@ -186,7 +188,9 @@ class _UserProfileViewState extends ConsumerState<UserProfileView> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              e.event!.name!,
+              e.event!.name!.length > 25
+                  ? e.event!.name!.substring(0, 25) + '...'
+                  : e.event!.name!,
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,

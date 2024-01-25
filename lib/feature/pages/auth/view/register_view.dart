@@ -1,4 +1,3 @@
-import 'package:final_project/feature/pages/auth/view/register_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,14 +10,14 @@ final _authViewModel = ChangeNotifierProvider<AuthViewModel>((ref) {
   return AuthViewModel();
 });
 
-class LoginView extends ConsumerStatefulWidget {
-  const LoginView({super.key});
+class RegisterView extends ConsumerStatefulWidget {
+  const RegisterView({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends ConsumerState<LoginView> {
+class _LoginViewState extends ConsumerState<RegisterView> {
   late double offset;
   late ScrollController _scrollController;
   @override
@@ -47,7 +46,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
           slivers: [
             SliverAppBar.large(
               title: const AuthTitleText(
-                title: 'Giriş Yap',
+                title: 'Kayıt Ol',
               ),
               backgroundColor: Colors.white,
               elevation: 0,
@@ -62,10 +61,31 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     height: 73,
                   ),
                   AuthTextField(
+                    labelText: 'İsim',
+                    keyboardType: TextInputType.text,
+                    textEditingController: ref
+                        .read(_authViewModel)
+                        .registerNameTextEditingController,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  AuthTextField(
+                    labelText: 'Soyisim',
+                    keyboardType: TextInputType.text,
+                    textEditingController: ref
+                        .read(_authViewModel)
+                        .registerSurnameTextEditingController,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  AuthTextField(
                     labelText: 'Email',
                     keyboardType: TextInputType.emailAddress,
-                    textEditingController:
-                        ref.read(_authViewModel).loginTextEditingController,
+                    textEditingController: ref
+                        .read(_authViewModel)
+                        .registerMailTextEditingController,
                   ),
                   const SizedBox(
                     height: 8,
@@ -73,45 +93,23 @@ class _LoginViewState extends ConsumerState<LoginView> {
                   AuthTextField(
                     keyboardType: TextInputType.visiblePassword,
                     labelText: 'Şifre',
-                    textEditingController:
-                        ref.read(_authViewModel).passwordTextEditingController,
+                    textEditingController: ref
+                        .read(_authViewModel)
+                        .registerPasswordTextEditingController,
                     textIsHidden: ref.watch(_authViewModel).passwordVisibility,
                     onPressed: () {
                       ref.read(_authViewModel).changePasswordVisibility();
                     },
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 8,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterView()));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            'Hesabın Yok mu? Kayıt Ol',
-                            style: TextStyle(
-                              color: Colors.amber,
-                              fontSize: 14,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 3,
-                          ),
-                          Icon(
-                            Icons.arrow_right_alt_rounded,
-                            color: Colors.amber,
-                          ),
-                        ],
-                      ),
-                    ),
+                  AuthTextField(
+                    labelText: 'Telefon',
+                    keyboardType: TextInputType.phone,
+                    textEditingController: ref
+                        .read(_authViewModel)
+                        .registerPhoneFTextEditingController,
                   ),
                   const SizedBox(
                     height: 32,
@@ -130,9 +128,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       onPressed: () async {
                         await ref
                             .read(_authViewModel)
-                            .loginAccount(context: context);
+                            .register(context: context);
                       },
-                      child: Text('Login'),
+                      child: Text('Kayıt Ol'),
                     ),
                   ),
                   const SizedBox(
